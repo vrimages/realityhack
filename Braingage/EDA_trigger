@@ -1,0 +1,15 @@
+from pylsl import StreamInlet, resolve_stream
+
+mac_address = "98:D3:51:FD:BD:C3"
+
+# Resolve stream
+print("Looking for an available OpenSignals stream from the specified device...")
+os_stream = resolve_stream("type", mac_address)
+
+# Create an inlet to receive signal samples from the stream
+inlet = StreamInlet(os_stream[0])
+
+while True:
+    # Receive samples
+    sample, timestamp = inlet.pull_sample()
+    print(timestamp, sample)
